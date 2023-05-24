@@ -6,6 +6,6 @@ module.exports = {
   bracketSpacing: true,
   bracketSameLine: false,
   arrowParens: 'always',
-  endOfLine: 'crlf',
+  endOfLine: 'lf',
   printWidth: 120
 }
