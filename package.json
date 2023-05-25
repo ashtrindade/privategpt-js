@@ -8,19 +8,22 @@
         "start": "node index.js",
         "lint": "eslint .",
         "lint-fix": "eslint --fix .",
-        "prepare": "husky install"
-    },
-    "lint-staged": {
-        "*.{js,jsx}": "eslint ."
+        "prepare": "husky install",
+        "ingest": "node ./src/utils/ingest.js ./src/trainingData/capivara.txt"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@huggingface/inference": "1.8.0",
         "argparse": "2.0.1",
         "chromadb": "1.5.0",
         "gpt4all": "1.0.0",
-        "langchain": "0.0.81"
+        "langchain": "0.0.81",
+        "multiprocessing": "1.2.0",
+        "node-fetch": "3.3.1",
+        "prompt-sync": "4.2.0",
+        "tqdm": "2.0.3"
     },
     "devDependencies": {
         "eslint": "8.36.0",

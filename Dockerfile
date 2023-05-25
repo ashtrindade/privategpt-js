@@ -1,10 +1,12 @@
 FROM node:18-alpine
 
-COPY package.json ./
+WORKDIR /app/
 
-RUN npm install
+COPY package*.json ./
 
-WORKDIR /home/	    
+RUN npm config set strict-ssl=false \
+    && npm install -g npm@9.6.7 \
+    && npm install
 
 RUN mkdir models \
     && cd models \
@@ -13,4 +15,6 @@ RUN mkdir models \
 
 COPY . .
 
-CMD ["bash]
+RUN npm run ingest
+
+ENTRYPOINT npm start

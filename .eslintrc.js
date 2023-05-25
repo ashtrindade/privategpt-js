@@ -13,6 +13,7 @@ module.exports = {
         indent: ['error', 4],
         'linebreak-style': ['error', 'unix'],
         quotes: ['error', 'single'],
-        semi: ['error', 'always']
+        semi: ['error', 'always'],
+        'no-constant-condition': ['error', { checkLoops: false }]
     }
 };

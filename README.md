@@ -7,7 +7,7 @@
 1- Clone
 
 ```shell
-git clone
+git clone git@github.com:ashtrindade/privategpt-js.git
 ```
 
 2- Install dependêncies
