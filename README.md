@@ -1,20 +1,22 @@
 # PrivateGPT
 
+⚠ work in progress
+
 ## Run
 
-### Clone
+1- Clone
 
 ```shell
 git clone
 ```
 
-### Install dependêncies
+2- Install dependêncies
 
 ```shell
 npm install
 ```
 
-### Execute
+3- Execute
 
 ```shell
 docker-compose up --build
