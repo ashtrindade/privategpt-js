@@ -3,7 +3,7 @@ const parser = new ArgumentParser({
     description: 'privateGPT: Ask questions to your documents without an internet connection'
 });
 
-function parseDocuments() {
+function parseArguments() {
     parser.add_argument(
         '--hide-source',
         '-S',
@@ -19,4 +19,4 @@ function parseDocuments() {
     );
 }
 
-module.exports = parseDocuments;
+module.exports = parseArguments;
