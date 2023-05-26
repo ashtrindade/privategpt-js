@@ -1,6 +1,8 @@
 # PrivateGPT
 
-⚠ work in progress - missing user interface
+![Work in progress](https://img.shields.io/badge/Work-In%20Progress-yellow)
+
+![GitHub](https://img.shields.io/github/license/ashtrindade/privategpt-js)
 
 ## Contents
 
@@ -31,19 +33,19 @@ soon
 
 ## How to run
 
-1. Clone
+Clone:
 
 ```shell
 git clone git@github.com:ashtrindade/privategpt-js.git
 ```
 
-2. Install dependêncies
+Install dependêncies:
 
 ```shell
 npm install
 ```
 
-3. Execute
+Execute:
 
 ```shell
 docker-compose up --build
