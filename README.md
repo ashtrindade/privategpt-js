@@ -1,8 +1,7 @@
 # PrivateGPT
 
 ![Work in progress](https://img.shields.io/badge/Work-In%20Progress-yellow)
-
-![GitHub](https://img.shields.io/github/license/ashtrindade/privategpt-js)
+[![GitHub](https://img.shields.io/github/license/ashtrindade/privategpt-js)](https://github.com/ashtrindade/privategpt-js/blob/main/LICENSE.md)
 
 ## Contents
 
