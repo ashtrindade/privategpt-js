@@ -1,9 +1,7 @@
-const tqdm = require('tqdm');
 const glob = require('glob');
 const fs = require('fs');
-const os = require('os');
 const path = require('path');
-const { Pool } = require('multiprocessing');
+const { Pool } = require('node-multiprocess');
 const { Chroma } = require('langchain/vectorstores/pinecone');
 const { RecursiveCharacterTextSplitter } = require('langchain/text_splitter');
 const { HuggingFaceInferenceEmbeddings } = require('langchain/embeddings/hf');
@@ -65,14 +63,16 @@ function loadDocuments(sourceDir, ignoredFiles = []) {
     let filteredFiles = allFiles.filter((filePath) => !ignoredFiles.includes(filePath));
 
     let results = [];
-    let pool = new Pool({ processes: os.cpus().length });
-    let pbar = new tqdm({ total: filteredFiles.length, desc: 'Loading new documents', ncols: 80 });
-    for (let doc of pool.imapUnordered(loadSingleDocument, filteredFiles)) {
+    const pool = new Pool(4);
+
+    let docs = pool.addJob(loadSingleDocument, filteredFiles);
+
+    for (let i = 0; i < docs.length; i++) {
+        let doc = docs[i];
         results.push(doc);
-        pbar.update();
     }
-    pool.close();
-    pbar.close();
+
+    pool.kill();
 
     return results;
 }

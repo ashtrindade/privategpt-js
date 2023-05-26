@@ -4,19 +4,15 @@ const parser = new ArgumentParser({
 });
 
 function parseArguments() {
-    parser.add_argument(
-        '--hide-source',
-        '-S',
-        { action: 'store_true' },
-        { help: 'Use this flag to disable printing of source documents used for answers.' }
-    );
+    parser.add_argument('--hide-source', '-S', {
+        action: 'store_true',
+        help: 'Use this flag to disable printing of source documents used for answers.'
+    });
 
-    parser.add_argument(
-        '--mute-stream',
-        '-M',
-        { action: 'store_true' },
-        { help: 'Use this flag to disable the streaming StdOut callback for LLMs.' }
-    );
+    parser.add_argument('--mute-stream', '-M', {
+        action: 'store_true',
+        help: 'Use this flag to disable the streaming StdOut callback for LLMs.'
+    });
 }
 
 module.exports = parseArguments;

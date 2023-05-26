@@ -1,37 +1,37 @@
-const { RetrievalQA } = require('langchain/chains');
-const { HuggingFaceEmbeddings } = require('langchain/embeddings/hf');
-const { StreamingStdOutCallbackHandler } = require('langchain/callbacks/streaming_stdout');
-const { GPT4All } = require('langchain/llms');
-const { Chroma } = require('langchain/vectorstores/pinecone');
+const { BaseChain } = require('langchain/chains');
+const { Embeddings } = require('langchain/embeddings/base');
+const { BaseCallbackHandler } = require('langchain/callbacks');
+const { LLM } = require('langchain/llms/base');
+const { VectorStore } = require('langchain/vectorstores/base');
 const parseArguments = require('./src/utils/parseArguments');
 const prompt = require('prompt-sync')();
 const args = parseArguments();
 
-const embeddings = new HuggingFaceEmbeddings({
-    model: process.env.EMBEDDINGS_MODEL_NAME
+const embeddings = new Embeddings({
+    model: 'all-MiniLM-L6-v2'
 });
 
-const db = new Chroma({
+const db = new VectorStore({
     persistDirectory: 'db',
     embeddingFunction: embeddings,
     chromaDbImpl: 'duckdb+parquet',
     anonymizedTelemetry: false
 });
 const retriever = db.asRetriever();
-const callbacks = args.muteStream ? [] : [new StreamingStdOutCallbackHandler()];
+const callbacks = args ? [] : [new BaseCallbackHandler()];
 
-const llm = new GPT4All({
+const llm = new LLM({
     model: process.env.MODEL_PATH,
     n_ctx: process.env.MODEL_N_CTX,
     backend: 'gptj',
     callbacks: callbacks,
     verbose: false
 });
-let qa = RetrievalQA.from_chain_type({
+let qa = new BaseChain({
     llm: llm,
     chainType: 'stuff',
     retriever: retriever,
-    returnSourceDocuments: !args.hideSource
+    returnSourceDocuments: !args
 });
 
 let query;
