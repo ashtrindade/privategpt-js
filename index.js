@@ -4,8 +4,9 @@ const { BaseCallbackHandler } = require('langchain/callbacks');
 const { LLM } = require('langchain/llms/base');
 const { VectorStore } = require('langchain/vectorstores/base');
 const parseArguments = require('./src/utils/parseArguments');
-let query = require('./src/utils/query');
-const args = parseArguments();
+const prompt = require('prompt-sync');
+
+let args = parseArguments();
 
 const embeddings = new Embeddings({
     model: 'all-MiniLM-L6-v2'
@@ -27,14 +28,22 @@ const llm = new LLM({
     callbacks: callbacks,
     verbose: false
 });
-let qa = new BaseChain({
+let chain = new BaseChain({
     llm: llm,
     chainType: 'stuff',
     retriever: retriever,
     returnSourceDocuments: !args
 });
 
-let res = qa(query);
+let query;
+while (true) {
+    query = prompt()();
+    if (query === 'exit') {
+        break;
+    }
+}
+
+let res = chain(query);
 let answer = res['result'];
 let docs = args.hide_source ? [] : res['source_documents'];
 
