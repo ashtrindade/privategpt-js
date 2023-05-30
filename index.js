@@ -4,7 +4,7 @@ const { BaseCallbackHandler } = require('langchain/callbacks');
 const { LLM } = require('langchain/llms/base');
 const { VectorStore } = require('langchain/vectorstores/base');
 const parseArguments = require('./src/utils/parseArguments');
-const prompt = require('prompt-sync')();
+let query = require('./src/utils/query');
 const args = parseArguments();
 
 const embeddings = new Embeddings({
@@ -33,15 +33,6 @@ let qa = new BaseChain({
     retriever: retriever,
     returnSourceDocuments: !args
 });
-
-let query;
-
-while (true) {
-    query = prompt('\nEnter a query: ');
-    if (query === 'exit') {
-        break;
-    }
-}
 
 let res = qa(query);
 let answer = res['result'];
